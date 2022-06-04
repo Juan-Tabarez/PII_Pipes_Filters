@@ -15,17 +15,24 @@ namespace CompAndDel
             IFilter filterNegative = new FilterNegative();
             IPipe pipeSerialTres = new PipeSerial(filterNegative, pipeNull);
             
+            IFilter twitterFilter2 = new FilterTwitter("prueba beer", @"intermediateFilter0.jpg");
+            IPipe pipeSerialDosPuntoCinco = new PipeSerial(twitterFilter2, pipeSerialTres);
              
             IFilter saveFilter = new FilterSave();
-            IPipe pipeSerialDos = new PipeSerial(saveFilter, pipeSerialTres);
-            
-
+            IPipe pipeSerialDos = new PipeSerial(saveFilter, pipeSerialDosPuntoCinco);
+                    
             IFilter filterGreyscale = new FilterGreyscale();
             IPipe pipeSerialUno = new PipeSerial(filterGreyscale, pipeSerialDos);
             
-            IPicture image = pipeSerialUno.Send(picture);
+            IFilter twitterFilter1 = new FilterTwitter("prueba beer", @"beer.jpg");
+            IPipe pipeSerialCeroPuntoCinco = new PipeSerial(twitterFilter1, pipeSerialUno);
 
-            provider.SavePicture(image, @"beer2.jpg");       
+            IPicture image = pipeSerialCeroPuntoCinco.Send(picture);
+
+            IFilter twitterFilter3 = new FilterTwitter("prueba beer", @"beer2.jpg");
+
+            provider.SavePicture(image, @"beer2.jpg"); 
+            
         }
     }
 }
