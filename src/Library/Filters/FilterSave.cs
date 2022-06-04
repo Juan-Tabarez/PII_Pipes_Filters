@@ -4,7 +4,7 @@ namespace CompAndDel.Filters
 {
     public class FilterSave : IFilter
     {
-        private int cont = 0;
+        private static int cont = 0;
 
         public IPicture Filter(IPicture image)
         {

@@ -6,20 +6,21 @@ namespace CompAndDel.Filters
     public class FilterTwitter : IFilter
     {
         private string post;
+        
+        private static int cont = 0;
 
-        private string path;
-
-        public FilterTwitter(string post, string path)
+        public FilterTwitter(string post)
         {
             this.post = post;
-            this.path = path;
         }
 
         public IPicture Filter(IPicture image)
         {
             TwitterImage twitterImage = new TwitterImage();
 
-            twitterImage.PublishToTwitter(this.post, this.path);
+            twitterImage.PublishToTwitter(this.post, @"intermediateFilter"+cont+".jpg");
+
+            cont++;
 
             return image;
         }
